@@ -3,11 +3,20 @@ import os
 import dotenv
 from dotenv import load_dotenv
 import requests as r 
+from datetime import datetime 
+from zoneinfo import ZoneInfo 
 
 load_dotenv() # read .env file and add to my environment 
 EXCHANGERATE_API = os.getenv('EXCHANGERATE_API_KEY') # retrieve a variable's value from my current environment (os.environ)
 
 base_url = f"https://v6.exchangerate-api.com/v6/{EXCHANGERATE_API}/pair"
+
+# Convert UTC time to readable format in PST 
+def parse_time(utc_time):
+    dt = datetime.strptime(utc_time, "%a, %d %b %Y %H:%M:%S %z")
+    dt_pst = dt.astimezone(ZoneInfo("America/Los_Angeles"))
+    date_time = dt_pst.strftime("%Y-%m-%d %H:%M")
+    return date_time
 
 # Call exachange rate API and return answer 
 def get_exchange_rate(base: str, target: str, amount: str) -> Tuple:
@@ -17,6 +26,8 @@ def get_exchange_rate(base: str, target: str, amount: str) -> Tuple:
 
     if response.status_code == 200:
         result_dict = response.json()
+        last_date_time = parse_time(result_dict['time_last_update_utc'])
+        print(f"{base} to {target} rate: {result_dict['conversion_rate']}, lastly updated on {last_date_time}.")
         conversion_result = round(result_dict['conversion_result'], 2) # round to two decimal places 
         return (base, target, amount, conversion_result)
     
