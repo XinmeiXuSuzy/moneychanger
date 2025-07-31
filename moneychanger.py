@@ -21,7 +21,7 @@ model = "openai/gpt-4.1"
 
 os.environ["LANGSMITH_TRACING_V2"] = "true"
 os.getenv("LANGSMITH_API_KEY")
-os.environ["LANGCHAIN_PROJECT"] = "moneychanger"
+os.environ["LANGSMITH_PROJECT"] = "moneychanger"
 
 client = OpenAI(
     base_url=endpoint,
