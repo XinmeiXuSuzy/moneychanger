@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 import streamlit as st
 from openai import OpenAI
 import json
-from langsmith import wrappers, traceable
+from langsmith import traceable
 
 load_dotenv() # read .env file and add to my environment 
 EXCHANGERATE_API = os.getenv('EXCHANGERATE_API_KEY') # retrieve a variable's value from my current environment (os.environ)
@@ -21,6 +21,7 @@ model = "openai/gpt-4.1"
 
 os.environ["LANGSMITH_TRACING_V2"] = "true"
 os.getenv("LANGSMITH_API_KEY")
+os.environ["LANGSMITH_PROJECT"] = "moneychanger"
 
 client = OpenAI(
     base_url=endpoint,
