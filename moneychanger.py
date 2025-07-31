@@ -132,10 +132,12 @@ def run_pipeline(user_input):
 
 # Create app layout 
 st.title("Multilingual Money Changer")
-user_input = st.text_area("Enter the amount of currency to change:")
+user_input = st.text_area("**Enter the amount of currency to change:**\
+                           \n &#128512; Base currency in three-letter code\
+                           \n &#128512; Amount in base currency unit\
+                           \n &#128512; Target currency in three-letter code")
 
 if st.button("Submit"):
-
     run_pipeline(user_input)
     
 
