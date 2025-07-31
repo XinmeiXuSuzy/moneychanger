@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 import streamlit as st
 from openai import OpenAI
 import json
+from langsmith import wrappers, traceable
 
 load_dotenv() # read .env file and add to my environment 
 EXCHANGERATE_API = os.getenv('EXCHANGERATE_API_KEY') # retrieve a variable's value from my current environment (os.environ)
@@ -18,12 +19,16 @@ token = os.environ["GITHUB_TOKEN"]
 endpoint = "https://models.github.ai/inference"
 model = "openai/gpt-4.1"
 
+os.environ["LANGSMITH_TRACING_V2"] = "true"
+os.getenv("LANGSMITH_API_KEY")
+
 client = OpenAI(
     base_url=endpoint,
     api_key=token,
 )
 
 # Convert UTC time to readable format in PST 
+@traceable
 def parse_time(utc_time):
     dt = datetime.strptime(utc_time, "%a, %d %b %Y %H:%M:%S %z")
     dt_pst = dt.astimezone(ZoneInfo("America/Los_Angeles"))
@@ -31,6 +36,7 @@ def parse_time(utc_time):
     return date_time
 
 # Call exachange rate API and return answer 
+@traceable
 def get_exchange_rate(base: str, target: str, amount: str) -> Tuple:
     """Return a tuple of (base, target, amount, conversion_result (2 decimal places))"""
     url = f"{base_url}/{base}/{target}/{amount}"
@@ -51,6 +57,7 @@ def get_exchange_rate(base: str, target: str, amount: str) -> Tuple:
 # print(get_exchange_rate('USD', 'CNY', '20'))
 
 # Processed prompt into appropriate format 
+@traceable
 def call_llm(textbox_input) -> Dict:
     """Make a call to the LLM with the textbox_input as the prompt.
        The output from the LLM should be a JSON (dict) with the base, amount and target"""
@@ -107,6 +114,7 @@ def call_llm(textbox_input) -> Dict:
     else:
         return response
 
+@traceable
 def run_pipeline(user_input):
     """Based on textbox_input, determine if you need to use the tools (function calling) for the LLM.
     Call get_exchange_rate(...) if necessary"""

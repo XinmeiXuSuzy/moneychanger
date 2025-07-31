@@ -1,3 +1,4 @@
 python-dotenv==1.0.1
 streamlit==1.47.1
 openai==1.98.0
+langsmith==0.4.9
