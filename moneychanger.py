@@ -6,19 +6,21 @@ import requests as r
 from datetime import datetime 
 from zoneinfo import ZoneInfo 
 import streamlit as st
+from openai import OpenAI
 
 load_dotenv() # read .env file and add to my environment 
 EXCHANGERATE_API = os.getenv('EXCHANGERATE_API_KEY') # retrieve a variable's value from my current environment (os.environ)
 
 base_url = f"https://v6.exchangerate-api.com/v6/{EXCHANGERATE_API}/pair"
 
-# Create app layout 
-st.title("Multilingual Money Changer")
-user_input = st.text_area("Enter the amount of currency to change:")
+token = os.environ["GITHUB_TOKEN"]
+endpoint = "https://models.github.ai/inference"
+model = "openai/gpt-4.1"
 
-if st.button("Submit"):
-    st.write("**You entered:**")
-    st.write(user_input)
+client = OpenAI(
+    base_url=endpoint,
+    api_key=token,
+)
 
 
 # Convert UTC time to readable format in PST 
@@ -51,11 +53,26 @@ def call_llm(textbox_input) -> Dict:
     """Make a call to the LLM with the textbox_input as the prompt.
        The output from the LLM should be a JSON (dict) with the base, amount and target"""
     try:
-        completion = ...
+        response = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant.",
+                },
+                {
+                    "role": "user",
+                    "content": textbox_input,
+                }
+            ],
+            temperature=1.0,
+            top_p=1.0,
+            model=model
+        )
+
     except Exception as e:
         print(f"Exception {e} for {text}")
     else:
-        return completion
+        return response.choices[0].message.content
 
 def run_pipeline():
     """Based on textbox_input, determine if you need to use the tools (function calling) for the LLM.
@@ -70,3 +87,12 @@ def run_pipeline():
         st.write(f"(Function calling not used) and response from the model")
     else:
         st.write("NotImplemented")
+
+# Create app layout 
+st.title("Multilingual Money Changer")
+user_input = st.text_area("Enter the amount of currency to change:")
+
+if st.button("Submit"):
+    st.write(call_llm(user_input))
+
+
