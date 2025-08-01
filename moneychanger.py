@@ -1,7 +1,14 @@
 from typing import Tuple, Dict
-import os
+
 import dotenv
 from dotenv import load_dotenv
+load_dotenv() # read .env file and add to my environment
+
+import os
+os.environ["LANGSMITH_TRACING_V2"] = "true"
+os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
+os.environ["LANGSMITH_PROJECT"] = "moneychanger"
+
 import requests as r 
 from datetime import datetime 
 from zoneinfo import ZoneInfo 
@@ -10,7 +17,6 @@ from openai import OpenAI
 import json
 from langsmith import traceable
 
-load_dotenv() # read .env file and add to my environment 
 EXCHANGERATE_API = os.getenv('EXCHANGERATE_API_KEY') # retrieve a variable's value from my current environment (os.environ)
 
 base_url = f"https://v6.exchangerate-api.com/v6/{EXCHANGERATE_API}/pair"
@@ -18,10 +24,6 @@ base_url = f"https://v6.exchangerate-api.com/v6/{EXCHANGERATE_API}/pair"
 token = os.environ["GITHUB_TOKEN"]
 endpoint = "https://models.github.ai/inference"
 model = "openai/gpt-4.1"
-
-os.environ["LANGSMITH_TRACING_V2"] = "true"
-os.getenv("LANGSMITH_API_KEY")
-os.environ["LANGSMITH_PROJECT"] = "moneychanger"
 
 client = OpenAI(
     base_url=endpoint,
