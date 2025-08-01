@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 load_dotenv() # read .env file and add to my environment
 
 import os
-# os.environ["LANGSMITH_TRACING_V2"] = "true"
-# os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
-# os.environ["LANGSMITH_PROJECT"] = "moneychanger"
+os.environ["LANGSMITH_TRACING_V2"] = "true"
+os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
+os.environ["LANGSMITH_PROJECT"] = "moneychanger"
 
 import requests as r 
 from datetime import datetime 
@@ -113,7 +113,7 @@ def call_llm(textbox_input) -> Dict:
         )
 
     except Exception as e:
-        print(f"Exception {e} for {text}")
+        print(f"Exception {e}")
     else:
         return response
 
