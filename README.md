@@ -10,7 +10,7 @@ Currency Exchange Now!
 - 🧪 Traced using LangSmith for debugging and observability
 
 ### 💻 App Interface
-![alt text](image.png)
+![demo](moneychanger-demo.gif)
 
 ### 🧰 Tech Stack
 
