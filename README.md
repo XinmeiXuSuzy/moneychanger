@@ -1,7 +1,7 @@
 # Multilingual Money Changer 
 Currency Exchange Now!
 
-#### 🌟 Features
+### 🌟 Features
 - 🗣️ Accepts natural language input for currency conversion (e.g., "Convert 250 GBP to USD")
 - 🧠 Leverages OpenAI GPT-4.1 with function-calling to parse inputs into structured data
 - 🔁 Fetches real-time exchange rates via ExchangeRate-API
@@ -9,9 +9,10 @@ Currency Exchange Now!
 - 📺 Displays result with human-readable formatting via Streamlit UI
 - 🧪 Traced using LangSmith for debugging and observability
 
+### 💻 App Interface
 ![alt text](image.png)
 
-#### 🧰 Tech Stack
+### 🧰 Tech Stack
 
 | Layer              | Tools / Libraries                     |
 |--------------------|----------------------------------------|
