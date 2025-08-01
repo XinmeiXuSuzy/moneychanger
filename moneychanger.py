@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 load_dotenv() # read .env file and add to my environment
 
 import os
-os.environ["LANGSMITH_TRACING_V2"] = "true"
-os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
-os.environ["LANGSMITH_PROJECT"] = "moneychanger"
+# os.environ["LANGSMITH_TRACING_V2"] = "true"
+# os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
+# os.environ["LANGSMITH_PROJECT"] = "moneychanger"
 
 import requests as r 
 from datetime import datetime 
@@ -24,6 +24,8 @@ base_url = f"https://v6.exchangerate-api.com/v6/{EXCHANGERATE_API}/pair"
 token = os.environ["GITHUB_TOKEN"]
 endpoint = "https://models.github.ai/inference"
 model = "openai/gpt-4.1"
+
+print(os.getenv("LANGSMITH_PROJECT"))
 
 client = OpenAI(
     base_url=endpoint,
@@ -151,5 +153,4 @@ user_input = st.text_area("**Enter the amount of currency to change:**\
 if st.button("Submit"):
     run_pipeline(user_input)
     
-
 
