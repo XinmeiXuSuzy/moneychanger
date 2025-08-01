@@ -1,10 +1,23 @@
 # Multilingual Money Changer 
 Currency Exchange Now!
 
-#### Use natural language to convert between currencies almost real-time 
-* Powered by OpenAI GPT-4.1 API using [Github Models](https://www.https://github.com/marketplace) 
-* Deployed using [Streamlit](https://streamlit.io/cloud) 
-* Connected to external exchange rate API for real-time conversion rate and calculation
-* Supports multiple languages for user input 
+#### 🌟 Features
+- 🗣️ Accepts natural language input for currency conversion (e.g., "Convert 250 GBP to USD")
+- 🧠 Leverages OpenAI GPT-4.1 with function-calling to parse inputs into structured data
+- 🔁 Fetches real-time exchange rates via ExchangeRate-API
+- 🕒 Converts timestamps to Pacific Time (PST)
+- 📺 Displays result with human-readable formatting via Streamlit UI
+- 🧪 Traced using LangSmith for debugging and observability
 
 ![alt text](image.png)
+
+#### 🧰 Tech Stack
+
+| Layer              | Tools / Libraries                     |
+|--------------------|----------------------------------------|
+| Interface          | [Streamlit](https://streamlit.io)      |
+| LLM                | OpenAI GPT-4.1 via GitHub Inference API |
+| API Data Source    | [ExchangeRate-API](https://www.exchangerate-api.com/) |
+| Environment Config | `dotenv`                               |
+| Timezone Handling  | `datetime`, `zoneinfo`                 |
+| Tracing            | [LangSmith](https://smith.langchain.com/) |
