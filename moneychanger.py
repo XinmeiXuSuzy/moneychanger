@@ -25,8 +25,6 @@ token = os.environ["GITHUB_TOKEN"]
 endpoint = "https://models.github.ai/inference"
 model = "openai/gpt-4.1"
 
-print(os.getenv("LANGSMITH_PROJECT"))
-
 client = OpenAI(
     base_url=endpoint,
     api_key=token,
