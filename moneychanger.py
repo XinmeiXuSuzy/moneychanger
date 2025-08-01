@@ -152,3 +152,6 @@ if st.button("Submit"):
     run_pipeline(user_input)
     
 
+print("LANGSMITH_API_KEY:", os.getenv("LANGSMITH_API_KEY") is not None)
+print("LANGSMITH_PROJECT:", os.getenv("LANGSMITH_PROJECT"))
+print("LANGSMITH_TRACING_V2:", os.getenv("LANGSMITH_TRACING_V2"))
