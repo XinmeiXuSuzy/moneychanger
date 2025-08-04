@@ -1,5 +1,5 @@
 # Multilingual Money Changer 
-[Currency Exchange Now!](https://moneychanger-by-xinmeixu.streamlit.app/)
+<a href="https://moneychanger-by-xinmeixu.streamlit.app/" target="_blank">Currency Exchange Now!</a>
 
 ### 🌟 Features
 - 🗣️ Accepts natural language input for currency conversion (e.g., "Convert 250 GBP to USD")
